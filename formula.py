@@ -8,13 +8,16 @@ class Formula(object):
 	self.f = []
 	
   def add_clause(self,(a,b)):
-	f.append((a,b))
+	self.f.append((a,b))
   
   def iterclause(self):
-	return iter(f)
+	return iter(self.f)
 	
   def num_clauses(self):
 	return len(self.f)
+	
+  def __str__(self):
+	return str(self.f)
 	
 def uniform(c1,c2):
   return choice((c1,c2))
@@ -27,5 +30,6 @@ def random_clause(n):
 def random_formula(n, m, repeat = True, choice=uniform):
   f = Formula()
   for i in xrange(m):
-	f.add_clause(choice(random_clause(n), random_clause(n))
+	f.add_clause(choice(random_clause(n), random_clause(n)))
   return f
+
