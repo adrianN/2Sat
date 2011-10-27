@@ -1,13 +1,18 @@
 ﻿# -*- coding: utf-8 -*-
-import networkx as nx
+from networkx import DiGraph
 from networkx.algorithms.components.strongly_connected import strongly_connected_components
 
-def satisfiable(formula):
-  #Build the implication graph
-  G = nx.DiGraph()
-  for (a,b) in formula.iterclauses():
+def _graph(formula):
+  """Build the implication graph"""
+  G = DiGraph()
+  for (a,b) in formula.iterclause():
 	G.add_edge(-a,b)
 	G.add_edge(-b,a)
+  
+  return G
+
+def satisfiable(formula):
+  G = _graph(formula)
   
   #check if a and -a in the same component
   for component in strongly_connected_components(G):
@@ -21,5 +26,3 @@ def satisfiable(formula):
   
   #components clean
   return True
-  
-  
