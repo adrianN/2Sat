@@ -37,6 +37,6 @@ def contradictory_variables(formula, G = None):
   
 def evil_path_lengths(formula):
   G = _graph(formula)
-  dist = all_pairs_shortest_path_length(G)
+  
   for v in contradictory_variables(formula,G):
 	yield (v, dist[-v][v], dist[v][-v])
