@@ -28,16 +28,16 @@ def random_clause(n):
   return cl
   
 def random_formula(n, m, repeat = True, choice=uniform):
-  if not repeat:
-	assert(m<3*n)
+  assert(repeat or m<3*n)
   f = Formula()
   seen = set()
   for i in xrange(m):
-	(a,b) = choice(random_clause(n), random_clause(n))
-	if a>b: (a,b) = (b,a)
-	while not repeat and (a,b) not in seen:
+	while True: 
 	  (a,b) = choice(random_clause(n), random_clause(n))
-	  if a>b: (a,b) = (b,a)
+	  if a>b: 
+		(a,b) = (b,a)
+	  if repeat or (a,b) not in seen:
+		break
 	seen.add((a,b))
 	f.add_clause((a,b))
   return f
