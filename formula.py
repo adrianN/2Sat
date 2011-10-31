@@ -19,6 +19,9 @@ class Formula(object):
   def __str__(self):
 	return str(self.f)
 	
+  def remove_last_clause(self):
+	self.f.pop()
+	
 def uniform(c1,c2):
   return choice((c1,c2))
 
