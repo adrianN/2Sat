@@ -19,8 +19,6 @@ def satisfiable(formula):
   except:
 		return True
   
-
-  
 def contradictory_variables(formula, G = None):
   if not G:
 		G = _graph(formula)
@@ -42,3 +40,19 @@ def evil_path_lengths(formula):
   	d1 = shortest_path_length(G, -v, v)
   	d2 = shortest_path_length(G, v, -v)
   	yield (v, d1, d2)
+  	
+def _histogramm(values, hist = None):
+  if not hist:
+	hist = {}
+  for v in values:
+	hist[v] = hist.get(v,0) + 1
+  
+  return hist
+  
+def evil_path_histogramm(formula, hist = None):
+  def values():
+	for (a,b,c) in evil_path_lengths(formula):
+	  yield b
+	  yield c
+  return _histogramm(values(), hist)
+  
